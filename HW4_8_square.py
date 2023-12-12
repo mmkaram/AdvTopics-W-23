@@ -190,7 +190,7 @@ def heuristic(state):
 
 # This function calculates the Manhattan distance for the given state.
 # The Manhattan distance is the sum of the absolute values of the differences in the goal's x and y coordinates and the current state's x and y coordinates.
-def manhatten(state):
+def manhattan(state):
     # The goal state is defined globally
     global end_state
     # Initialize the total Manhattan distance to 0
