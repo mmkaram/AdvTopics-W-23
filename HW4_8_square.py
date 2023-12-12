@@ -5,6 +5,9 @@
 # This file generates a random 8-square board (solvable)
 # and then uses an A* algorithms to solve it.
 
+
+# importing datetime to get the delta between the start time
+# and when the program finishes running
 from datetime import datetime
 startTime = datetime.now()
 
