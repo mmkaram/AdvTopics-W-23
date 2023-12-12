@@ -244,7 +244,7 @@ def a_star(start_state):
     visited = set()
 
     
-    fringe.put((manhatten(start_state), 0, start_state))
+    fringe.put((manhattan(start_state), 0, start_state))
 
     while not fringe.empty():
         _, cost, current_state = fringe.get()
@@ -263,7 +263,7 @@ def a_star(start_state):
             # if the move being analyzed wasn't visited add to the fringe
             # and update visited
             if tuple(flatten_board(next_move)) not in visited:
-                fringe.put((manhatten(next_move) + cost + 1, cost + 1, next_move))
+                fringe.put((manhattan(next_move) + cost + 1, cost + 1, next_move))
                 visited.add(tuple(flatten_board(next_move)))
 
     print("No solution found.")
