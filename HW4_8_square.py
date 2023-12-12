@@ -221,7 +221,14 @@ def manhattan(state):
 def goal_check(state):
     global end_state
 
-    return state == end_state
+    # using two for loops to go through
+    # three sets for 3 value lists
+    for i in range(3):
+        for j in range(3):
+            if state[i][j] != end_state[i][j]:
+                return False
+
+    return True
 
 
 # the actual algorithm necessary to perform A* search.
