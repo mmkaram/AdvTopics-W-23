@@ -5,6 +5,9 @@
 # This file generates a random 8-square board (solvable)
 # and then uses an A* algorithms to solve it.
 
+from datetime import datetime
+startTime = datetime.now()
+
 # this import brings in the random number generation
 # we use this to create random board
 # Generate a number between x (inclusive) and y (exclusive) with
@@ -173,6 +176,7 @@ def get_next_moves(state):
 #  - sum of the Manhattan distances of an item to its location
 #  - sum of euclidean distances or an item to its location
 def heuristic(state):
+    # not used
     print(state)
     global end_state
     cost = 0
@@ -184,21 +188,29 @@ def heuristic(state):
 
     return cost
 
-# a function that takes in a state and returns an integer value indicating
-# the estimated distance this state is from the end
-# using Manhattan distance as the heuristic
+# This function calculates the Manhattan distance for the given state.
+# The Manhattan distance is the sum of the absolute values of the differences in the goal's x and y coordinates and the current state's x and y coordinates.
 def manhatten(state):
+    # The goal state is defined globally
     global end_state
+    # Initialize the total Manhattan distance to 0
     total_manhattan_distance = 0
 
+    # Iterate over each cell in the state
     for i in range(3):
         for j in range(3):
+            # Get the value at the current cell
             value = state[i][j]
+            # If the value is not 0 (not the blank space)
             if value != 0:
+                # Find the goal position of the current value
                 goal_position = [(row, col) for row in range(3) for col in range(3) if end_state[row][col] == value][0]
+                # Calculate the Manhattan distance for the current cell
                 manhattan_distance = abs(i - goal_position[0]) + abs(j - goal_position[1])
+                # Add the Manhattan distance to the total
                 total_manhattan_distance += manhattan_distance
 
+    # Return the total Manhattan distance
     return total_manhattan_distance
 
 # a function that returns True if the goal has been met and we are in the
@@ -259,3 +271,4 @@ def a_star(start_state):
 
 board = gen_solvable()
 a_star(board)
+print(datetime.now() - startTime)
