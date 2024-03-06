@@ -2,11 +2,10 @@
 # Mahdy M. Karam
 # 2024/03/01
 
+# Import sklearn functions and pandas for the dataframe
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.cluster import KMeans
-from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import pandas as pd
 
@@ -19,6 +18,7 @@ columns_to_drop = ['move_positions', 'move_direction',
 data = data.drop(columns=columns_to_drop)
 
 # Remove rows with NaN values anywhere
+# The dataset is large, so we can afford to drop them
 data = data.dropna()
 
 # Define features and target
@@ -33,23 +33,11 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+# I tried all models, but KNN is the best
+
 # K-Nearest Neighbors (KNN)
 knn_model = KNeighborsRegressor(n_neighbors=5)
 knn_model.fit(X_train_scaled, y_train)
 knn_predictions = knn_model.predict(X_test_scaled)
 knn_mse = mean_squared_error(y_test, knn_predictions)
 print("KNN Mean Squared Error:", knn_mse)
-
-# K-Means Clustering
-kmeans_model = KMeans(n_clusters=3, random_state=42)
-kmeans_model.fit(X_train_scaled)
-kmeans_predictions = kmeans_model.predict(X_test_scaled)
-kmeans_mse = mean_squared_error(y_test, kmeans_predictions)
-print("K-Means Mean Squared Error:", kmeans_mse)
-
-# Linear Regression
-linear_model = LinearRegression()
-linear_model.fit(X_train_scaled, y_train)
-linear_predictions = linear_model.predict(X_test_scaled)
-linear_mse = mean_squared_error(y_test, linear_predictions)
-print("Linear Regression Mean Squared Error:", linear_mse)
